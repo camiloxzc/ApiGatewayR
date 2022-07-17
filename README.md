@@ -36,7 +36,7 @@ Ya actualizado puedes subir los cambios en conjunto
 git push origin master:nombre_de_mi_rama
 ```
 # No tengo permiso para hacer cambios!!
-Solo dilo por whatsapp a Francisco Martínez [martinezfran19 ]
+Solo dilo por whatsapp a Camilo Orozco [camiloxzc]
 
 # Instalation
 
