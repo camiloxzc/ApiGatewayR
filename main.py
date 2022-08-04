@@ -6,6 +6,7 @@ from flask_jwt_extended import verify_jwt_in_request,get_jwt_identity
 from flask import jsonify
 from waitress import serve
 from flask_jwt_extended import JWTManager
+import re
 
 import middlewares.format_url
 
@@ -31,7 +32,7 @@ url_security = dataConfig["url-security"]
 @app.before_request
 def before_request_callback():
     print("before_request_callback started")
-    excluded_routes = ["/login"]
+    excluded_routes = ["/auth"]
     if request.path not in excluded_routes:
         if not verify_jwt_in_request():
             return jsonify({"msg": "Permission denied"}), 401
@@ -41,17 +42,26 @@ def before_request_callback():
         if user["role"] is None:
             return jsonify({"msg": "Permission Denied"}), 401
         else:
-            role_id = user["role"]["_id"]
-            route = middlewares.format_url()
+            role_id = user["role"]["id"]
+            route = format_url()
             method = request.method
-            has_permission = middlewares.validate_permission(role_id, route, method)
+            has_permission = validate_permission(role_id, route, method)
             if not has_permission:
                 return jsonify({"msg": "Permission Denied"}), 401
+
+
+def format_url():
+    parts = request.path.split("/")
+    url = request.path
+    for part in parts:
+        if re.search('\\d', part):
+            url = url.replace(part, "?")
+    return url
 
 def validate_permission(role_id, route, method):
     headers = {"Content-Type": "application/json; charset=utf-8"}
     url = dataConfig["url-security"] + "/permission-role/validate/role/" + role_id
-    body = {"url": route, "method": method}
+    body = {"url": route, "metodo": method}
     print(body)
     response = requests.post(url, json=body, headers=headers)
     print(response)

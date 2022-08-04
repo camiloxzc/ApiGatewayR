@@ -26,11 +26,11 @@ def createParty():
 def updateParty(id):
     url = url_base + "/party/" + id
     body = request.get_json()
-    response = requests.post(url, json=body, headers=headers)
+    response = requests.put(url, json=body, headers=headers)
     return response.json()
 
 @app.route("/party/<string:id>", methods=["DELETE"])
 def deleteParty(id):
     url = url_base + "/party/" + id
-    response = requests.get(url, headers=headers)
+    response = requests.delete(url, headers=headers)
     return response.json()
