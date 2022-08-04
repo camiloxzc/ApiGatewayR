@@ -1,5 +1,6 @@
 import requests
-from flask import request
+import json
+from flask import request, jsonify
 from main import headers, url_base, app
 
 
@@ -7,7 +8,8 @@ from main import headers, url_base, app
 def get_tables():
     url = url_base + "/tables"
     response = requests.get(url, headers=headers)
-    return response.json()
+    re = json.loads(response.content)
+    return jsonify(re), 200
 
 
 @app.route("/table", methods=['POST'])

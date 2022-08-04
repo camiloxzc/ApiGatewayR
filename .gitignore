@@ -1,5 +1,6 @@
 config.json
 .idea
+/env
 /venv
 __pycache__
 *.pyc
