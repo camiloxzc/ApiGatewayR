@@ -58,6 +58,7 @@ def format_url():
             url = url.replace(part, "?")
     return url
 
+
 def validate_permission(role_id, route, method):
     headers = {"Content-Type": "application/json; charset=utf-8"}
     url = dataConfig["url-security"] + "/permission-role/validate/role/" + role_id
@@ -85,7 +86,7 @@ import routes.candidates
 # >>>> Users
 import routes.users
 # >>>> Permissions
-import routes.permissions
+import routes.permission_role
 # >>>> Token and Validation
 import routes.validation
 

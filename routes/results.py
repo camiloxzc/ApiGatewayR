@@ -19,7 +19,7 @@ def getResultsByTable():
     response = requests.get(url, headers=headers)
     return response.json()
 
-@app.route("/newsenate", methods=["GET"])
+@app.route("/newsenate/", methods=["GET"])
 def getNewSenate():
     url = url_base + "/newsenate"
     response = requests.get(url, headers=headers)
