@@ -176,7 +176,7 @@ def getAllCandidateResults():
 def getResultsByParty():
     url = url_base + "/parties-result"
     response = requests.get(url, headers=headers)
-    return response.json()
+    return Response(json.dumps(json.loads(response.content)),  mimetype='application/json')
 
 
 @app.route("/parties-result/<string:id>", methods=["GET"])
